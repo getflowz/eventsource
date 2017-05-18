@@ -1,7 +1,7 @@
 package singleton
 
 import (
-	"github.com/altairsix/eventsource/dynamodbstore"
+	"github.com/getflowz/eventsource/dynamodbstore"
 	"gopkg.in/urfave/cli.v1"
 )
 

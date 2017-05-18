@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/getflowz/eventsource"
+	"github.com/getflowz/eventsource/dynamodbstore"
 )
 
 // UserCreated defines a user creation event
@@ -20,7 +21,7 @@ type UserNameSet struct {
 	Name string
 }
 
-// UserLastSet defines an event via tags
+// UserEmailSet implements the eventsource.Event interface directly rather than using the eventsource.Model helper
 type UserEmailSet struct {
 	ID      string
 	Version int
@@ -62,20 +63,27 @@ func (item *User) On(event eventsource.Event) error {
 		item.Email = v.Email
 
 	default:
-		return fmt.Errorf("unhandled event, %v", v)
+		return fmt.Errorf("unable to handle event, %v", v)
 	}
 
 	return nil
 }
 
 func main() {
-	serializer := eventsource.NewJSONSerializer(
-		UserCreated{},
-		UserNameSet{},
-		UserEmailSet{},
+	store, err := dynamodbstore.New("user_events",
+		dynamodbstore.WithRegion("us-west-2"),
 	)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	repo := eventsource.New(&User{},
-		eventsource.WithSerializer(serializer),
+		eventsource.WithStore(store),
+		eventsource.WithSerializer(eventsource.NewJSONSerializer(
+			UserCreated{},
+			UserNameSet{},
+			UserEmailSet{},
+		)),
 	)
 
 	id := "123"
@@ -90,7 +98,7 @@ func main() {
 	}
 
 	ctx := context.Background()
-	err := repo.Save(ctx, setEmailEvent, setNameEvent)
+	err = repo.Save(ctx, setEmailEvent, setNameEvent)
 	if err != nil {
 		log.Fatalln(err)
 	}

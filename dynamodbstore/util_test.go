@@ -1,4 +1,4 @@
-package singleton_test
+package dynamodbstore_test
 
 import (
 	"math/rand"
@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/getflowz/eventsource/singleton"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/getflowz/eventsource/dynamodbstore"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,7 +22,7 @@ func TempTable(t *testing.T, api *dynamodb.DynamoDB, fn func(tableName string)) 
 	now := strconv.FormatInt(time.Now().UnixNano(), 36)
 	random := strconv.FormatInt(int64(r.Int31()), 36)
 	tableName := "tmp-" + now + "-" + random
-	input := singleton.MakeCreateTableInput(tableName, 50, 50)
+	input := dynamodbstore.MakeCreateTableInput(tableName, 50, 50)
 	_, err := api.CreateTable(input)
 	assert.Nil(t, err)
 	defer func() {

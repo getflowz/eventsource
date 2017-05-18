@@ -7,8 +7,8 @@ import (
 
 	"math"
 
-	"github.com/altairsix/eventsource"
-	"github.com/altairsix/eventsource/awscloud"
+	"github.com/getflowz/eventsource"
+	"github.com/getflowz/eventsource/awscloud"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"

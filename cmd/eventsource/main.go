@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/altairsix/eventsource/cmd/eventsource/dynamodb"
-	"github.com/altairsix/eventsource/cmd/eventsource/singleton"
+	"github.com/getflowz/eventsource/cmd/eventsource/dynamodb"
+	"github.com/getflowz/eventsource/cmd/eventsource/singleton"
 	"gopkg.in/urfave/cli.v1"
 )
 

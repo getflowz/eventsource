@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/altairsix/eventsource"
-	"github.com/altairsix/eventsource/awscloud"
-	"github.com/altairsix/eventsource/dynamodbstore"
-	"github.com/altairsix/eventsource/singleton"
+	"github.com/getflowz/eventsource"
+	"github.com/getflowz/eventsource/awscloud"
+	"github.com/getflowz/eventsource/dynamodbstore"
+	"github.com/getflowz/eventsource/singleton"
 	"github.com/stretchr/testify/assert"
 )
 
